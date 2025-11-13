@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Dulce Limón</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo-wrapper">
+        <img id="brandLogo" src="/pasteleria-app/src/assets/LogoDulceLimon.jpeg" alt="Logo del emprendimiento">
+      </div>
+      <div>
+        <h1 id="brandName">Dulce Limón</h1>
+        <p id="brandContact">0260-4600069 
+          Instagram: @dulce_limon.18
+          Facebook: Dulce Limón
+        </p>
+      </div>
+    </div>
+    <button id="printBudget" class="ghost-button" type="button">Imprimir / Compartir</button>
+  </header>
+
+  <main class="app-main">
+    <section class="panel" id="profilePanel">
+      <h2>Dulce Limón</h2>
+      <form id="profileForm" autocomplete="off">
+        <label class="input-group">
+          <span>Dulce Limón</span>
+          <input id="profileName" type="text" placeholder="Ej. Dulzuras de Ana">
+        </label>
+        <label class="input-group">
+          <span>Contacto (teléfono: 260-4600069
+          Instagram: @dulce_limon.18
+          Facebook: Dulce Limón)</span>
+          <input id="profileContact" type="text" placeholder="Ej. +54 11 1234 5678">
+        </label>
+        <label class="input-group file-input">
+          <span><img id="brandLogo" src="/pasteleria-app/src/assets/LogoDulceLimon.jpeg" alt="Logo del emprendimiento"></span>
+          <input id="profileLogo" type="file" accept="image/*">
+        </label>
+      </form>
+    </section>
+
+    <section class="panel" id="productPanel">
+      <h2>Nuevo producto</h2>
+      <form id="productForm" autocomplete="off">
+        <label class="input-group">
+          <span>Nombre del producto</span>
+          <input id="productName" type="text" placeholder="Ej. Brownies de nuez" required>
+        </label>
+        <label class="input-group">
+          <span>Descripción del pedido</span>
+          <textarea id="productNotes" rows="2" placeholder="Ej. Caja de 12 unidades"></textarea>
+        </label>
+        <div class="form-grid">
+          <label class="input-group">
+            <span>Porciones / unidades</span>
+            <input id="productPortions" type="number" min="1" step="1" placeholder="Ej. 12">
+          </label>
+          <label class="input-group">
+            <span>Markup (%)</span>
+            <input id="productMarkup" type="number" min="0" step="1" value="60">
+          </label>
+        </div>
+      </form>
+
+      <section class="panel nested" id="ingredientPanel">
+        <h3>Ingredientes</h3>
+        <form id="ingredientForm" class="ingredient-form" autocomplete="off">
+          <label class="input-group">
+            <span>Ingrediente</span>
+            <input id="ingredientName" type="text" placeholder="Ej. Chocolate" required>
+          </label>
+          <div class="form-grid">
+            <label class="input-group">
+              <span>Cantidad (gramos)</span>
+              <input id="ingredientQuantity" type="number" min="1" step="1" placeholder="Ej. 250" required>
+            </label>
+            <label class="input-group">
+              <span>Precio por kilo ($)</span>
+              <input id="ingredientPrice" type="number" min="0" step="0.01" placeholder="Ej. 2200" required>
+            </label>
+          </div>
+          <label class="input-group">
+            <span>Notas</span>
+            <input id="ingredientNotes" type="text" placeholder="Origen, marca, etc.">
+          </label>
+          <button id="addIngredient" type="submit">Agregar ingrediente</button>
+        </form>
+
+        <div id="ingredientList" class="ingredient-list">
+          <p class="empty-message">Cargá tus ingredientes para ver el costo.</p>
+        </div>
+      </section>
+
+      <section class="panel nested" id="totalsPanel">
+        <h3>Resumen</h3>
+        <dl class="totals">
+          <div>
+            <dt>Costo ingredientes</dt>
+            <dd id="ingredientCost">$0,00</dd>
+          </div>
+          <div>
+            <dt>Markup aplicado</dt>
+            <dd id="markupValue">$0,00</dd>
+          </div>
+          <div class="total">
+            <dt>Precio sugerido</dt>
+            <dd id="finalPrice">$0,00</dd>
+          </div>
+        </dl>
+        <button id="saveProduct" class="primary" type="button">Guardar producto</button>
+      </section>
+    </section>
+
+    <section class="panel" id="savedProductsPanel">
+      <div class="panel-header">
+        <h2>Mis productos</h2>
+        <button id="clearProducts" class="ghost-button" type="button">Vaciar lista</button>
+      </div>
+      <div id="productsContainer" class="cards"></div>
+      <p id="noProductsMessage" class="empty-message">Aún no guardaste productos. Creá uno para comenzar.</p>
+    </section>
+  </main>
+
+  <section class="panel preview" id="previewPanel">
+    <h2>Vista previa de presupuesto</h2>
+    <div id="previewCard" class="preview-card">
+      <div class="preview-header">
+        <div class="preview-logo">
+          <img id="previewLogo" src="" alt="Logo del presupuesto">
+        </div>
+        <div>
+          <h3 id="previewBrand">Mi Pastelería</h3>
+          <p id="previewContact">Datos de contacto</p>
+        </div>
+      </div>
+      <div class="preview-body">
+        <h4 id="previewProduct">Seleccioná un producto para ver el detalle</h4>
+        <p id="previewNotes"></p>
+        <ul id="previewIngredients" class="preview-ingredients"></ul>
+        <dl class="preview-totals">
+          <div>
+            <dt>Costo de ingredientes</dt>
+            <dd id="previewIngredientCost">$0,00</dd>
+          </div>
+          <div>
+            <dt>Markup</dt>
+            <dd id="previewMarkup">0%</dd>
+          </div>
+          <div>
+            <dt>Precio final</dt>
+            <dd id="previewFinalPrice">$0,00</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="preview-actions">
+      <button id="shareBudget" class="primary" type="button">Enviar presupuesto</button>
+    </div>
+  </section>
+
+  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Presupuestos Pastelería</title>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>🧁 Presupuestos Dulce Limón</h1>
+
+    <!-- Navegación entre secciones -->
+    <div class="navegacion">
+      <button class="tab-btn active" data-tab="ingredientes">Ingredientes</button>
+      <button class="tab-btn" data-tab="productos">Productos</button>
+      <button class="tab-btn" data-tab="presupuestos">Presupuestos</button>
+    </div>
+
+    <!-- Sección Ingredientes -->
+    <div id="ingredientes" class="seccion active">
+      <h2>Gestión de Ingredientes</h2>
+      <div class="formulario">
+        <input type="text" id="nombreIngrediente" placeholder="Nombre del ingrediente">
+        <input type="number" id="precioKg" placeholder="Precio por Kg ($)" step="0.01">
+        <button id="agregarIngrediente">Agregar Ingrediente</button>
+      </div>
+      <div id="listaIngredientes" class="lista"></div>
+    </div>
+
+    <!-- Sección Productos -->
+    <div id="productos" class="seccion">
+      <h2>Gestión de Productos</h2>
+      <div class="formulario">
+        <input type="text" id="nombreProducto" placeholder="Nombre del producto (ej: Brownies)">
+        <input type="number" id="margenGanancia" placeholder="Margen de ganancia (%)" value="50" step="1">
+        <button id="crearProducto">Crear Producto</button>
+      </div>
+
+      <div id="productoActual" class="producto-detalle" style="display:none;">
+        <h3 id="nombreProductoActual"></h3>
+        <div class="formulario-ingrediente-producto">
+          <select id="selectIngrediente">
+            <option value="">Seleccione ingrediente</option>
+          </select>
+          <input type="number" id="cantidadGramos" placeholder="Cantidad en gramos" step="0.1">
+          <button id="agregarIngredienteProducto">Agregar</button>
+        </div>
+        <div id="ingredientesProducto" class="lista-ingredientes-producto"></div>
+        <div class="precio-final">
+          <p><strong>Costo Total:</strong> $<span id="costoTotal">0.00</span></p>
+          <p><strong>Precio al Público:</strong> $<span id="precioPublico">0.00</span></p>
+        </div>
+        <button id="guardarProducto" class="btn-guardar">Guardar Producto</button>
+      </div>
+
+      <div id="listaProductos" class="lista"></div>
+    </div>
+
+    <!-- Sección Presupuestos -->
+    <div id="presupuestos" class="seccion">
+      <h2>Generar Presupuesto</h2>
+      <div class="formulario">
+        <input type="text" id="nombreCliente" placeholder="Nombre del cliente">
+        <input type="text" id="logoUrl" placeholder="URL del logo (opcional)">
+        <div id="listaProductosPresupuesto" class="lista-productos-presupuesto"></div>
+        <div class="total-presupuesto">
+          <h3>Total: $<span id="totalPresupuesto">0.00</span></h3>
+        </div>
+        <button id="generarPresupuesto" class="btn-generar">Generar Presupuesto</button>
+        <button id="compartirPresupuesto" class="btn-compartir">Compartir Presupuesto</button>
+      </div>
+    </div>
+
+    <!-- Modal para vista previa del presupuesto -->
+    <div id="modalPresupuesto" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="vistaPresupuesto"></div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+
+ </body>
+</html>
